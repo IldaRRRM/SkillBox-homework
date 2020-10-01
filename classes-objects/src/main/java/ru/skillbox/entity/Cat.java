@@ -1,5 +1,6 @@
 package ru.skillbox.entity;
 
+import java.util.Random;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,8 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 
 	private int staminaIndex = 10;
 
+	private double eatenFoodWeight;
+
 	private Status status = Status.ALIVE;
 
 	public Cat(String name, Double weight) {
@@ -39,6 +42,7 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 		if (isAlive()) {
 			log.info("Кот с именем {} ест еду {}", this.name, food.getTitle());
 			this.weight += food.getWeightIncrement();
+			this.eatenFoodWeight += food.getWeightIncrement();
 			this.staminaIndex += 1;
 			log.info("Кот с именем {} cъел еду. Его вес {}", this.name, this.weight);
 			weightControl();
@@ -60,6 +64,13 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 
 	@Override
 	public void pee() {
+		if (isAlive()) {
+			this.weight -= getRandomPeeWeight();
+			log.info("Кот по имени {} сходил в туалет, теперь его вес равен {}", this.name, this.weight);
+			weightControl();
+		} else {
+			log.info("Кошка по имени {} мертва и больше не может ходить в туалет :(", this.name);
+		}
 
 	}
 
@@ -90,6 +101,10 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 			log.warn("Превышен максимальный вес кота с именем {}. Он умер от ожирения :(", this.name);
 			this.status = Status.DEAD;
 		}
+	}
+
+	private Double getRandomPeeWeight() {
+		return new Random().nextBoolean() ? 0.001 : 0.002 * weight;
 	}
 
 }
