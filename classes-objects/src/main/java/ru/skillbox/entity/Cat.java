@@ -46,6 +46,15 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 		COUNT++;
 	}
 
+	public Cat(String name, Double weight, Color color) {
+		this.name = name;
+		this.weight = weight;
+		this.maxWeight = this.weight * 4;
+		this.minWeight = this.weight / 2;
+		this.color = color;
+		COUNT++;
+	}
+
 	/**
 	 * Получить текущее значение популяции котэ
 	 */
@@ -97,6 +106,19 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 	 */
 	public boolean isAlive() {
 		return this.status.equals(Status.ALIVE);
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Cat clone = null;
+		try {
+			clone = (Cat) super.clone();
+		} catch (CloneNotSupportedException ex) {
+			clone = new Cat(this.name, this.weight, this.color);
+		}
+		clone.setStatus(this.status);
+		clone.setColor(color);
+		return clone;
 	}
 
 	private void staminaControl() {
