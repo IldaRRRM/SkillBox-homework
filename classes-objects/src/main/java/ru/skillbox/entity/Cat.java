@@ -16,6 +16,8 @@ import ru.skillbox.service.Pee;
 @EqualsAndHashCode
 public class Cat implements Eat, Pee, MakeSound, Cloneable {
 
+	public static final Integer EYES_COUNT = 2;
+
 	private static Integer COUNT = 0;
 
 	private final String name;
