@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import ru.skillbox.enums.Color;
 import ru.skillbox.enums.Status;
 import ru.skillbox.service.Eat;
 import ru.skillbox.service.MakeSound;
@@ -33,6 +34,9 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 	private double eatenFoodWeight;
 
 	private Status status = Status.ALIVE;
+
+	//геттер и сеттер с помощью ломбока
+	private Color color = Color.BLACK;
 
 	public Cat(String name, Double weight) {
 		this.name = name;
