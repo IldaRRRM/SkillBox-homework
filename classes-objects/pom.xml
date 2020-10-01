@@ -36,7 +36,13 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.skillbox</groupId>
+            <artifactId>airports</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/airport-1.0.1.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>
