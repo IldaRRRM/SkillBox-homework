@@ -16,6 +16,8 @@ import ru.skillbox.service.Pee;
 @EqualsAndHashCode
 public class Cat implements Eat, Pee, MakeSound, Cloneable {
 
+	private static Integer COUNT = 0;
+
 	private final String name;
 
 	private final double minWeight;
@@ -35,6 +37,14 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 		this.weight = weight;
 		this.maxWeight = weight * 4;
 		this.minWeight = weight / 2;
+		COUNT++;
+	}
+
+	/**
+	 * Получить текущее значение популяции котэ
+	 */
+	public static Integer getCOUNT() {
+		return COUNT;
 	}
 
 	@Override
@@ -88,6 +98,7 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 			log.warn("Котэ {} на исходе сил", this.name);
 		} else if (staminaIndex < 0) {
 			this.status = Status.DEAD;
+			COUNT--;
 			log.warn("На кота {} оказана слишком больша нагрузка, он умер :( ", this.name);
 		}
 	}
@@ -97,9 +108,11 @@ public class Cat implements Eat, Pee, MakeSound, Cloneable {
 			log.warn("Достигнут минимальный вес кота с именем {} лучше покормите его", this.name);
 		} else if (this.weight < minWeight) {
 			this.status = Status.DEAD;
+			COUNT--;
 		} else if (this.weight > maxWeight) {
 			log.warn("Превышен максимальный вес кота с именем {}. Он умер от ожирения :(", this.name);
 			this.status = Status.DEAD;
+			COUNT--;
 		}
 	}
 
